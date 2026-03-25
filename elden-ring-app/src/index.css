@@ -2,10 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+:root {
   background-color: black;
 }
 
 .logo {
-      font-family: 'Cinzel Decorative', serif;
+  font-family: 'Cinzel Decorative', serif;
+}
+
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-weight: 900;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  animation: fadeSlideUp 1.2s ease forwards;
+  line-height: 1.1;
 }
