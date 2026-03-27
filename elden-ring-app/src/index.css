@@ -4,17 +4,41 @@
 
 :root {
   background-color: black;
+  font-family: "EB Garamond", serif;
+
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --gold-dim: #7a5f28;
+  --bg-deep: #080604;
+  --bg-mid: #100d08;
+  --bg-card: #13100a;
+  --text-main: #d4c89a;
+  --text-dim: #7a6e52;
+  --red-rune: #8b1a1a;
+  --red-glow: #c0392b;
+  --border: rgba(201, 168, 76, 0.25);
 }
 
 .logo {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: "Cinzel Decorative", serif;
+}
+
+.nav-links {
+  letter-spacing: 4px;
+}
+
+.underline {
 }
 
 .hero-title {
-  font-family: 'Cinzel Decorative', serif;
-  font-weight: 900;
-  color: var(--gold-light);
+  font-family: "Cinzel Decorative", serif;
   letter-spacing: 0.08em;
   animation: fadeSlideUp 1.2s ease forwards;
+  line-height: 1.1;
+}
+
+.hero-text {
+  font-family: "Cinzel", serif;
+  letter-spacing: 0.08em;
   line-height: 1.1;
 }
