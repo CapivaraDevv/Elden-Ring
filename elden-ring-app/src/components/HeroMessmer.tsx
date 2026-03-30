@@ -23,15 +23,11 @@ export default function HeroMessmer() {
   const rafRef = useRef<number>(0);
   const scrollRef = useRef(0);
 
-
-
   // Entrada animada
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
-
-  
 
   // Partículas de fogo
   useEffect(() => {
@@ -96,14 +92,6 @@ export default function HeroMessmer() {
 
   return (
     <div className="w-full">
-      <div className="px-6 py-10 text-center">
-        <h1 className="messmer-text text-red-rune whitespace-pre-line text-center text-3xl md:text-4xl lg:text-8xl">
-          messmer
-        </h1>
-        <h2 className="text-red-rune goth-text whitespace-pre-line tracking-tight text-center text-3xl md:text-2xl lg:text-2xl drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
-          O Portador da Chama Proibida.
-        </h2>
-      </div>
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
@@ -111,8 +99,8 @@ export default function HeroMessmer() {
         className="relative h-[100vh] max-h-[500px] w-full overflow-hidden"
         style={{ cursor: "none" }}
       >
-      {/* Fundo — movimento mais lento */}
-      <img
+        {/* Fundo — movimento mais lento */}
+        {/* <img
         src={MessmerComFundo}
         alt="Fundo Messmer"
         className="absolute inset-0 w-full h-full opacity-30 object-contain will-change-transform"
@@ -121,40 +109,49 @@ export default function HeroMessmer() {
           opacity: mounted ? 0.3 : 0,
           transition: "opacity 1.2s ease, transform 0.12s ease-out",
         }}
-      />
+      /> */}
 
-      {/* Corpo — velocidade média */}
-      <img
-        src={MessmerCorpo}
-        alt="Corpo Messmer"
-        className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
-        style={{
-          ...layer(0.10, 10),
-          opacity: mounted ? 0.7 : 0,
-          transition: "opacity 1.6s ease 0.3s, transform 0.12s ease-out",
-        }}
-      />
+        <div className="px-6 pt-10 text-center">
+          <h1 className="messmer-text text-red-rune whitespace-pre-line text-center text-3xl md:text-4xl lg:text-8xl">
+            Messmer
+          </h1>
+          <h2 className="text-red-rune goth-text whitespace-pre-line tracking-tight text-center text-3xl md:text-2xl lg:text-4xl drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
+            O Portador da Chama Proibida.
+          </h2>
+        </div>
 
-      {/* Fogo — mais rápido, mais "na frente" */}
-      <img
-        src={MessmerFogo}
-        alt="Fogo Messmer"
-        className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
-        style={{
-          ...layer(0.15, 18),
-          opacity: mounted ? 1 : 0,
-          transition: "opacity 2s ease 0.6s, transform 0.12s ease-out",
-        }}
-      />
+        {/* Corpo — velocidade média */}
+        <img
+          src={MessmerCorpo}
+          alt="Corpo Messmer"
+          className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
+          style={{
+            ...layer(0.10, 10),
+            opacity: mounted ? 1 : 0,
+            transition: "opacity 1.6s ease 0.3s, transform 0.12s ease-out",
+          }}
+        />
 
-      {/* Overlay de iluminação suave (pode remover se não quiser escurecer) */}
-      {/* <div
+        {/* Fogo — mais rápido, mais "na frente" */}
+        <img
+          src={MessmerFogo}
+          alt="Fogo Messmer"
+          className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
+          style={{
+            ...layer(0.15, 18),
+            opacity: mounted ? 1 : 0,
+            transition: "opacity 2s ease 0.6s, transform 0.12s ease-out",
+          }}
+        />
+
+        {/* Overlay de iluminação suave (pode remover se não quiser escurecer) */}
+        {/* <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{ background: "rgba(0,0,0,0.45)" }}
       /> */}
 
-      {/* Particulas */}
-      {particles.map((p) => (
+        {/* Particulas */}
+        {/* {particles.map((p) => (
         <div
           key={p.id}
           className="absolute rounded-full pointer-events-none"
@@ -172,19 +169,19 @@ export default function HeroMessmer() {
             } as React.CSSProperties
           }
         />
-      ))}
+      ))} */}
 
-      {/* Overlay gradiente no rodapé */}
-      <div
+        {/* Overlay gradiente no rodapé */}
+        <div
         className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
         style={{
           height: "40%",
           background:
             "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
         }}
-      />
+        />
 
-      <style>{`
+        <style>{`
                 @keyframes fireParticle {
                     0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
                     100% { transform: translate(var(--drift), -120px) scale(0); opacity: 0; }

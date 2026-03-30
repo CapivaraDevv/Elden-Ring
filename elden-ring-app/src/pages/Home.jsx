@@ -24,7 +24,7 @@ export default function Home() {
       <Cards />
       <div
         className="absolute w-full h-[1px] bg-[linear-gradient(90deg,transparent,#8b1a1a,transparent,#8b1a1a,transparent)] transition-all duration-300"></div>
-      <div className="w-full max-w-6xl px-4 mt-16">
+      <div className="w-full max-w-6xl py-10  ">
         <HeroMessmer />
       </div>
     </div>
