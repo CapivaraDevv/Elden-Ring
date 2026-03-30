@@ -27,8 +27,12 @@
   letter-spacing: 4px;
 }
 
-.underline {
+.goth-text {
+  font-family: "UnifrakturCook", cursive;
+  font-weight: 700;
+  font-style: normal;
 }
+
 
 .hero-title {
   font-family: "Cinzel Decorative", serif;

@@ -20,7 +20,7 @@ export default function Home() {
           </span>
         </button>
       </div>
-      <div className="grid grid-cols-2 p-8 w-[900px] gap-8">
+      <div className="grid grid-cols-2 p-8 w-[900px] gap-8 mb-10">
         <div className="p-8 cursor-pointer border border-border bg-bg-card hover:border-gold-dim transition-all hover:-translate-y-1 hover:bg-[linear-gradient(135deg,rgba(201,168,76,0.04),transparent)]">
           <h1 className="hero-title font-bold text-gold py-4">
             A árvore sagrada
@@ -39,7 +39,9 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <HeroMessmer />
+      <div className="w-full max-w-6xl px-4">
+        <HeroMessmer />
+      </div>
     </div>
   );
 }
