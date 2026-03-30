@@ -1,4 +1,5 @@
 import HeroMessmer from "../components/HeroMessmer";
+import Cards from "../components/Cards";
 
 export default function Home() {
   return (
@@ -20,26 +21,10 @@ export default function Home() {
           </span>
         </button>
       </div>
-      <div className="grid grid-cols-2 p-8 w-[900px] gap-8 mb-10">
-        <div className="p-8 cursor-pointer border border-border bg-bg-card hover:border-gold-dim transition-all hover:-translate-y-1 hover:bg-[linear-gradient(135deg,rgba(201,168,76,0.04),transparent)]">
-          <h1 className="hero-title font-bold text-gold py-4">
-            A árvore sagrada
-          </h1>
-          <p className="leading-tight text-sm text-text-dim">
-            Fonte da Graça Dourada, a Árvore ilumina as Terras Entre. Sua luz
-            guia os Maculados e sustenta o ciclo da vida e morte eternas.
-          </p>
-        </div>
-        <div className="p-8 cursor-pointer border border-border bg-bg-card hover:border-gold-dim transition-all hover:-translate-y-1 hover:bg-[linear-gradient(135deg,rgba(201,168,76,0.04),transparent)]">
-          <h1 className="hero-title font-bold text-gold py-4">Os maculados</h1>
-          <p className="leading-tight text-sm text-text-dim">
-            Exilados e esquecidos pela Graça, retornam das terras distantes
-            convocados por um chamado misterioso. São mortos que não encontram
-            descanso.
-          </p>
-        </div>
-      </div>
-      <div className="w-full max-w-6xl px-4">
+      <Cards />
+      <div
+        className="absolute w-full h-[1px] bg-[linear-gradient(90deg,transparent,#8b1a1a,transparent,#8b1a1a,transparent)] transition-all duration-300"></div>
+      <div className="w-full max-w-6xl px-4 mt-16">
         <HeroMessmer />
       </div>
     </div>

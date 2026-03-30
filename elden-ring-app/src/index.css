@@ -12,16 +12,19 @@
   --bg-deep: #080604;
   --bg-mid: #100d08;
   --bg-card: #13100a;
+  --bg-card-purple: #0d0011;
   --text-main: #d4c89a;
   --text-dim: #7a6e52;
   --red-rune: #8b1a1a;
   --red-glow: #c0392b;
   --border: rgba(201, 168, 76, 0.25);
+  --border-purple: #4b0261;
 }
 
 .logo {
   font-family: "Cinzel Decorative", serif;
 }
+
 
 .nav-links {
   letter-spacing: 4px;
@@ -45,4 +48,10 @@
   font-family: "Cinzel", serif;
   letter-spacing: 0.08em;
   line-height: 1.1;
+}
+
+.messmer-text {
+  font-Family: 'UnifrakturMaguntia', cursive;
+  line-height: 1.15;
+  letter-Spacing: 1.1;
 }
