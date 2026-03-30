@@ -99,17 +99,17 @@ export default function HeroMessmer() {
         className="relative h-[100vh] max-h-[500px] w-full overflow-hidden"
         style={{ cursor: "none" }}
       >
-        {/* Fundo — movimento mais lento */}
+        
         {/* <img
-        src={MessmerComFundo}
+        src={MessmerFundo}
         alt="Fundo Messmer"
-        className="absolute inset-0 w-full h-full opacity-30 object-contain will-change-transform"
+        className="absolute inset-0 w-full h-full object-contain will-change-transform"
         style={{
-          ...layer(0.05, 4),
-          opacity: mounted ? 0.3 : 0,
+          ...layer(0.20, 4),
+          opacity: mounted ? 1 : 0,
           transition: "opacity 1.2s ease, transform 0.12s ease-out",
         }}
-      /> */}
+        /> */}
 
         <div className="px-6 pt-10 text-center">
           <h1 className="messmer-text text-red-rune whitespace-pre-line text-center text-3xl md:text-4xl lg:text-8xl">
@@ -120,13 +120,16 @@ export default function HeroMessmer() {
           </h2>
         </div>
 
+        {/* Fundo — movimento mais lento */}
+        
+
         {/* Corpo — velocidade média */}
         <img
           src={MessmerCorpo}
           alt="Corpo Messmer"
           className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
           style={{
-            ...layer(0.10, 10),
+            ...layer(0.20, 10),
             opacity: mounted ? 1 : 0,
             transition: "opacity 1.6s ease 0.3s, transform 0.12s ease-out",
           }}
@@ -138,7 +141,7 @@ export default function HeroMessmer() {
           alt="Fogo Messmer"
           className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
           style={{
-            ...layer(0.15, 18),
+            ...layer(0.25, 18),
             opacity: mounted ? 1 : 0,
             transition: "opacity 2s ease 0.6s, transform 0.12s ease-out",
           }}
