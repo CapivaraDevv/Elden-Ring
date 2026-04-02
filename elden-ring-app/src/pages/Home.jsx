@@ -1,9 +1,25 @@
 import HeroMessmer from "../components/HeroMessmer";
 import Cards from "../components/Cards";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [corruption, setCorruption] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+
+      const value = (scrollY / maxScroll) * 100;
+      setCorruption(value);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen transition-all duration-500">
       <div className="flex flex-col items-center">
         <div className="relative items-center justify-center mb-6">
           <h1 className="text-5xl font-extrabold text-gold-light mb-4 hero-title transition-all">
@@ -22,9 +38,10 @@ export default function Home() {
         </button>
       </div>
       <Cards />
+      <div className="absolute w-full h-[1px] bg-[linear-gradient(90deg,transparent,#8b1a1a,transparent,#8b1a1a,transparent)] transition-all duration-300"></div>
       <div
-        className="absolute w-full h-[1px] bg-[linear-gradient(90deg,transparent,#8b1a1a,transparent,#8b1a1a,transparent)] transition-all duration-300"></div>
-      <div className="w-full max-w-6xl py-10  ">
+        className="w-full max-w-6xl py-10"
+      >
         <HeroMessmer />
       </div>
     </div>

@@ -19,6 +19,7 @@ export default function HeroMessmer() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const scrollRef = useRef(0);
