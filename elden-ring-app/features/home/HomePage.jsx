@@ -1,6 +1,6 @@
-import HomeHero from "../features/home/HomeHero";
-import HomeCards from "../features/home/HomeCards";
-import HeroMessmer from "../features/home/HeroMessmer";
+import HomeHero from "./HomeHero";
+import HomeCards from "./HomeCards";
+import HeroMessmer from "./HeroMessmer";
 
 export default function HomePage() {
   return (

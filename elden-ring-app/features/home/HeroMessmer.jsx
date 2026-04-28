@@ -1,41 +1,27 @@
 import { useEffect, useRef, useState } from "react";
-import MessmerFundo from "../assets/MessmerFundo.png";
-import MessmerCorpo from "../assets/MessmerSemFundo.png";
-import MessmerComFundo from "../assets/MessmerComfundo.png";
-import MessmerFogo from "../assets/MessmerLançaCobra.png";
-
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-  drift: number;
-}
+import MessmerCorpo from "../../assets/MessmerSemFundo.png";
+import MessmerFogo from "../../assets/MessmerLançaCobra.png";
 
 export default function HeroMessmer() {
   const [scrollY, setScrollY] = useState(0);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const [particles, setParticles] = useState([]);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>(0);
+  const containerRef = useRef(null);
+  const rafRef = useRef(0);
   const scrollRef = useRef(0);
 
-  // Entrada animada
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
 
-  // Partículas de fogo
   useEffect(() => {
     const generated = Array.from({ length: 18 }, (_, i) => ({
       id: i,
-      x: 30 + Math.random() * 40, // concentra no centro
-      y: 60 + Math.random() * 30, // nasce na parte baixa
+      x: 30 + Math.random() * 40,
+      y: 60 + Math.random() * 30,
       size: 4 + Math.random() * 8,
       duration: 1.5 + Math.random() * 2,
       delay: Math.random() * 3,
@@ -44,22 +30,21 @@ export default function HeroMessmer() {
     setParticles(generated);
   }, []);
 
-  // Scroll suavizado com RAF
   useEffect(() => {
     const onScroll = () => {
       scrollRef.current = window.scrollY;
     };
+
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const tick = () => {
       setScrollY((prev) => {
         const next = prev + (scrollRef.current - prev) * 0.08;
-        return Math.abs(next - scrollRef.current) < 0.1
-          ? scrollRef.current
-          : next;
+        return Math.abs(next - scrollRef.current) < 0.1 ? scrollRef.current : next;
       });
       rafRef.current = requestAnimationFrame(tick);
     };
+
     rafRef.current = requestAnimationFrame(tick);
 
     return () => {
@@ -68,11 +53,10 @@ export default function HeroMessmer() {
     };
   }, []);
 
-  // Mouse parallax
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e) => {
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1 a 1
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
     setMouse({ x, y });
   };
@@ -81,13 +65,8 @@ export default function HeroMessmer() {
     setMouse({ x: 0, y: 0 });
   };
 
-  // Transforms combinados: scroll + mouse
-  const layer = (scrollFactor: number, mouseFactor: number) => ({
-    transform: `
-      translateY(${scrollY * scrollFactor}px)
-      translateX(${mouse.x * mouseFactor}px)
-      translateY(${mouse.y * mouseFactor * 0.5}px)
-    `,
+  const layer = (scrollFactor, mouseFactor) => ({
+    transform: `translateY(${scrollY * scrollFactor}px) translateX(${mouse.x * mouseFactor}px) translateY(${mouse.y * mouseFactor * 0.5}px)`,
     transition: "transform 0.12s ease-out",
   });
 
@@ -100,18 +79,6 @@ export default function HeroMessmer() {
         className="relative h-[100vh] max-h-[500px] w-full overflow-hidden"
         style={{ cursor: "none" }}
       >
-        
-        {/* <img
-        src={MessmerFundo}
-        alt="Fundo Messmer"
-        className="absolute inset-0 w-full h-full object-contain will-change-transform"
-        style={{
-          ...layer(0.20, 4),
-          opacity: mounted ? 1 : 0,
-          transition: "opacity 1.2s ease, transform 0.12s ease-out",
-        }}
-        /> */}
-
         <div className="px-6 pt-10 text-center">
           <h1 className="messmer-text text-red-rune whitespace-pre-line text-center text-3xl md:text-4xl lg:text-8xl">
             Messmer
@@ -121,22 +88,17 @@ export default function HeroMessmer() {
           </h2>
         </div>
 
-        {/* Fundo — movimento mais lento */}
-        
-
-        {/* Corpo — velocidade média */}
         <img
           src={MessmerCorpo}
           alt="Corpo Messmer"
           className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
           style={{
-            ...layer(0.20, 10),
+            ...layer(0.2, 10),
             opacity: mounted ? 1 : 0,
             transition: "opacity 1.6s ease 0.3s, transform 0.12s ease-out",
           }}
         />
 
-        {/* Fogo — mais rápido, mais "na frente" */}
         <img
           src={MessmerFogo}
           alt="Fogo Messmer"
@@ -148,19 +110,11 @@ export default function HeroMessmer() {
           }}
         />
 
-        {/* Overlay de iluminação suave (pode remover se não quiser escurecer) */}
-        {/* <div
-        className="absolute inset-0 z-10 pointer-events-none"
-        style={{ background: "rgba(0,0,0,0.45)" }}
-      /> */}
-
-        {/* Particulas */}
-        {/* {particles.map((p) => (
-        <div
-          key={p.id}
-          className="absolute rounded-full pointer-events-none"
-          style={
-            {
+        {particles.map((p) => (
+          <div
+            key={p.id}
+            className="absolute rounded-full pointer-events-none"
+            style={{
               left: `${p.x}%`,
               top: `${p.y}%`,
               width: p.size,
@@ -170,27 +124,24 @@ export default function HeroMessmer() {
               animation: `fireParticle ${p.duration}s ease-in ${p.delay}s infinite`,
               "--drift": `${p.drift}px`,
               zIndex: 30,
-            } as React.CSSProperties
-          }
-        />
-      ))} */}
+            }}
+          />
+        ))}
 
-        {/* Overlay gradiente no rodapé */}
         <div
-        className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
-        style={{
-          height: "40%",
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
-        }}
+          className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
+          style={{
+            height: "40%",
+            background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
+          }}
         />
 
         <style>{`
-                @keyframes fireParticle {
-                    0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
-                    100% { transform: translate(var(--drift), -120px) scale(0); opacity: 0; }
-                }
-            `}</style>
+          @keyframes fireParticle {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+            100% { transform: translate(var(--drift), -120px) scale(0); opacity: 0; }
+          }
+        `}</style>
       </div>
     </div>
   );
