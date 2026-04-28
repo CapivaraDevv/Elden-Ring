@@ -12,7 +12,7 @@ export default function HomeHero() {
         <p className="text-lg mb-8 hero-text text-center text-gold-dim">
           Explore o mundo de Elden Ring e descubra seus segredos
         </p>
-        <div className="absolute w-full h-[1px] bg-[linear-gradient(90deg,transparent,#fef08a,transparent)] transition-all duration-300" />
+        <div className="relative w-full h-[1px] bg-[linear-gradient(90deg,transparent,#fef08a,transparent)] transition-all duration-300" />
       </div>
 
       <button className="relative px-6 py-3 tracking-widest border border-solid border-yellow-200 font-bold text-gold-light rounded group overflow-hidden">
@@ -22,7 +22,7 @@ export default function HomeHero() {
         </span>
       </button>
 
-      <div className="mt-8 w-full max-w-xl">
+      {/* <div className="mt-8 w-full max-w-xl">
         <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
           <div
             className="h-full bg-gold-light transition-all duration-300"
@@ -32,7 +32,7 @@ export default function HomeHero() {
         <p className="mt-3 text-sm text-text-dim text-center">
           Corrupção: {Math.round(corruption)}%
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }

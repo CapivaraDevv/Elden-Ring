@@ -25,7 +25,6 @@
   font-family: "Cinzel Decorative", serif;
 }
 
-
 .nav-links {
   letter-spacing: 4px;
 }
@@ -35,7 +34,6 @@
   font-weight: 700;
   font-style: normal;
 }
-
 
 .hero-title {
   font-family: "Cinzel Decorative", serif;
@@ -51,7 +49,24 @@
 }
 
 .messmer-text {
-  font-Family: 'UnifrakturMaguntia', cursive;
+  font-family: "UnifrakturMaguntia", cursive;
   line-height: 1.15;
-  letter-Spacing: 1.1;
+  letter-spacing: 1.1;
+}
+
+/* Galho dourado */
+
+svg {
+  animation: svgFadeIn 2s ease-out forwards;
+}
+
+@keyframes svgFadeIn {
+  from {
+    opacity: 0;
+    filter: brightness(0.5);
+  }
+  to {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
 }
