@@ -6,19 +6,20 @@
   background-color: black;
   font-family: "EB Garamond", serif;
 
-  --gold: #c9a84c;
-  --gold-light: #e8c96a;
-  --gold-dim: #7a5f28;
-  --bg-deep: #080604;
-  --bg-mid: #100d08;
-  --bg-card: #13100a;
-  --bg-card-purple: #0d0011;
-  --text-main: #d4c89a;
-  --text-dim: #7a6e52;
-  --red-rune: #8b1a1a;
-  --red-glow: #c0392b;
+  /* RGB channels — permite uso de modificadores de opacidade no Tailwind (ex: text-gold/50) */
+  --gold: 201 168 76;
+  --gold-light: 232 201 106;
+  --gold-dim: 122 95 40;
+  --bg-deep: 8 6 4;
+  --bg-mid: 16 13 8;
+  --bg-card: 19 16 10;
+  --bg-card-purple: 13 0 17;
+  --text-main: 212 200 154;
+  --text-dim: 122 110 82;
+  --red-rune: 139 26 26;
+  --red-glow: 192 57 43;
   --border: rgba(201, 168, 76, 0.25);
-  --border-purple: #4b0261;
+  --border-purple: rgba(75, 2, 97, 1);
 }
 
 .logo {

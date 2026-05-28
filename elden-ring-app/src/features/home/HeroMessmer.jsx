@@ -1,148 +1,163 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useMemo } from "react";
+import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import MessmerFundo from "../../assets/MessmerFundo.png";
 import MessmerCorpo from "../../assets/MessmerSemFundo.png";
 import MessmerFogo from "../../assets/MessmerLançaCobra.png";
 
+const PARTICLE_COUNT = 14;
+
+
+
 export default function HeroMessmer() {
-  const [scrollY, setScrollY] = useState(0);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const [mounted, setMounted] = useState(false);
-  const [particles, setParticles] = useState([]);
+  const sectionRef = useRef(null);
+  const rafRef = useRef(null);
+  const navigate = useNavigate();
 
-  const containerRef = useRef(null);
-  const rafRef = useRef(0);
-  const scrollRef = useRef(0);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
 
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 100);
-    return () => clearTimeout(t);
-  }, []);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const smoothX = useSpring(rawX, { stiffness: 55, damping: 22 });
+  const smoothY = useSpring(rawY, { stiffness: 55, damping: 22 });
 
-  useEffect(() => {
-    const generated = Array.from({ length: 18 }, (_, i) => ({
-      id: i,
-      x: 30 + Math.random() * 40,
-      y: 60 + Math.random() * 30,
-      size: 4 + Math.random() * 8,
-      duration: 1.5 + Math.random() * 2,
-      delay: Math.random() * 3,
-      drift: (Math.random() - 0.5) * 60,
-    }));
-    setParticles(generated);
-  }, []);
-
-  useEffect(() => {
-    const onScroll = () => {
-      scrollRef.current = window.scrollY;
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    const tick = () => {
-      setScrollY((prev) => {
-        const next = prev + (scrollRef.current - prev) * 0.08;
-        return Math.abs(next - scrollRef.current) < 0.1 ? scrollRef.current : next;
-      });
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
+  // 3 camadas com velocidades diferentes — cria profundidade
+  // const bgX    = useTransform(smoothX, [-1, 1], [-8,  8]);
+  // const bgY    = useTransform(smoothY, [-1, 1], [-5,  5]);
+  const bodyX  = useTransform(smoothX, [-1, 1], [-20, 20]);
+  const bodyY  = useTransform(smoothY, [-1, 1], [-9,  9]);
+  const fireX  = useTransform(smoothX, [-1, 1], [-30, 30]);
+  const fireY  = useTransform(smoothY, [-1, 1], [-14, 14]);
+  const scrollShift = useTransform(scrollYProgress, [0, 1], [-40, 40]);
 
   const handleMouseMove = (e) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    setMouse({ x, y });
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      const rect = sectionRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      rawX.set(((e.clientX - rect.left) / rect.width  - 0.5) * 2);
+      rawY.set(((e.clientY - rect.top)  / rect.height - 0.5) * 2);
+    });
   };
 
   const handleMouseLeave = () => {
-    setMouse({ x: 0, y: 0 });
+    rawX.set(0);
+    rawY.set(0);
   };
 
-  const layer = (scrollFactor, mouseFactor) => ({
-    transform: `translateY(${scrollY * scrollFactor}px) translateX(${mouse.x * mouseFactor}px) translateY(${mouse.y * mouseFactor * 0.5}px)`,
-    transition: "transform 0.12s ease-out",
-  });
-
   return (
-    <div className="w-full">
-      <div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        className="relative h-[100vh] max-h-[500px] w-full overflow-hidden"
-        style={{ cursor: "none" }}
-      >
-        <div className="px-6 pt-10 text-center">
-          <h1 className="messmer-text text-red-rune whitespace-pre-line text-center text-3xl md:text-4xl lg:text-8xl">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="w-full relative overflow-hidden py-16"
+    >
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+        {/* Coluna esquerda: texto */}
+        <motion.div
+          initial={{ opacity: 0, x: -32 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="flex flex-col gap-6 z-10"
+        >
+          <p className="hero-text text-[9px] tracking-[0.5em] uppercase opacity-50"
+             style={{ color: "rgb(var(--red-rune))" }}>
+            Shadow of the Erdtree · Personagem
+          </p>
+
+          <h2 className="messmer-text text-6xl md:text-7xl leading-none"
+              style={{ color: "rgb(var(--red-rune))" }}>
             Messmer
-          </h1>
-          <h2 className="text-red-rune goth-text whitespace-pre-line tracking-tight text-center text-3xl md:text-2xl lg:text-4xl drop-shadow-[0_0_20px_rgba(0,0,0,0.8)]">
-            O Portador da Chama Proibida.
           </h2>
-        </div>
 
-        <img
-          src={MessmerCorpo}
-          alt="Corpo Messmer"
-          className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
-          style={{
-            ...layer(0.2, 10),
-            opacity: mounted ? 1 : 0,
-            transition: "opacity 1.6s ease 0.3s, transform 0.12s ease-out",
-          }}
-        />
+          <p className="goth-text text-xl md:text-2xl leading-tight opacity-80"
+             style={{ color: "rgb(var(--red-rune))" }}>
+            O Portador da Chama Proibida
+          </p>
 
-        <img
-          src={MessmerFogo}
-          alt="Fogo Messmer"
-          className="absolute inset-0 w-full h-full object-contain will-change-transform scale-95"
-          style={{
-            ...layer(0.25, 18),
-            opacity: mounted ? 1 : 0,
-            transition: "opacity 2s ease 0.6s, transform 0.12s ease-out",
-          }}
-        />
+          <div className="w-12 h-px opacity-30" style={{ background: "rgb(var(--red-rune))" }} />
 
-        {particles.map((p) => (
-          <div
-            key={p.id}
-            className="absolute rounded-full pointer-events-none"
+          <p className="hero-text text-sm text-text-dim leading-relaxed max-w-sm">
+            Filho apagado da história de Marika, exilado na Terra da Sombra.
+            Empunha uma chama de serpente que devora tudo o que toca — inimigos,
+            memórias e sua própria carne. Guardião implacável dos segredos mais
+            obscuros da deusa.
+          </p>
+
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate("/personagens")}
+            className="self-start mt-2 px-8 py-3 hero-text text-[10px] tracking-[0.4em] uppercase transition-colors duration-300"
             style={{
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              width: p.size,
-              height: p.size,
-              background: `radial-gradient(circle, #ffdd57, #ff6b00, transparent)`,
-              opacity: mounted ? 0.8 : 0,
-              animation: `fireParticle ${p.duration}s ease-in ${p.delay}s infinite`,
-              "--drift": `${p.drift}px`,
-              zIndex: 30,
+              color: "rgb(var(--red-rune))",
+              border: "1px solid rgba(var(--red-rune), 0.3)",
             }}
-          />
-        ))}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(139,26,26,0.07)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
+            Ver Personagens
+          </motion.button>
+        </motion.div>
 
+        {/* Coluna direita: imagem com 2 camadas de parallax */}
         <div
-          className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
+          className="relative h-[480px] md:h-[580px]"
           style={{
-            height: "40%",
-            background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
+            maskImage:
+              "radial-gradient(ellipse 82% 90% at 50% 42%, black 35%, transparent 75%), linear-gradient(to top, transparent 0%, black 35%)",
+            maskComposite: "intersect",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 82% 90% at 50% 42%, black 35%, transparent 75%), linear-gradient(to top, transparent 0%, black 35%)",
+            WebkitMaskComposite: "source-in",
           }}
-        />
+        >
 
-        <style>{`
-          @keyframes fireParticle {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
-            100% { transform: translate(var(--drift), -120px) scale(0); opacity: 0; }
-          }
-        `}</style>
+          {/* Camada 1 — corpo */}
+          <motion.img
+            src={MessmerFundo}
+            alt="Messmer"
+            className="absolute inset-0 blur-sm w-full h-full object-contain will-change-transform"
+            style={{ x: bodyX, y: bodyY, translateY: scrollShift }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease: "easeOut", delay: 0.15 }}
+          />
+
+          {/* Camada 1 — corpo */}
+          <motion.img
+            src={MessmerCorpo}
+            alt="Messmer"
+            className="absolute inset-0 blur-md w-full h-full object-contain will-change-transform"
+            style={{ x: bodyX, y: bodyY, translateY: scrollShift }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.4, ease: "easeOut", delay: 0.15 }}
+          />
+
+          {/* Camada 2 — fogo (mais rápido) */}
+          <motion.img
+            src={MessmerFogo}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-contain will-change-transform"
+            style={{ x: fireX, y: fireY, translateY: scrollShift }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
+          />
+
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

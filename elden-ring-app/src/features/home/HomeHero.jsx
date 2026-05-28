@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import useScrollProgress from "../../hooks/useScrollProgress";
 
 export default function HomeHero() {
+  const navigate = useNavigate();
   const corruption = useScrollProgress();
 
   return (
@@ -15,7 +17,10 @@ export default function HomeHero() {
         <div className="relative w-full h-[1px] bg-[linear-gradient(90deg,transparent,#fef08a,transparent)] transition-all duration-300" />
       </div>
 
-      <button className="relative px-6 py-3 tracking-widest border border-solid border-yellow-200 font-bold text-gold-light rounded group overflow-hidden">
+      <button
+        onClick={() => navigate("/locais")}
+        className="relative px-6 py-3 tracking-widest border border-solid border-yellow-200 font-bold text-gold-light rounded group overflow-hidden"
+      >
         <span className="absolute inset-0 bg-yellow-200 w-0 group-hover:w-full transition-all duration-500 ease-out" />
         <span className="relative z-10 group-hover:text-bg-deep transition-colors duration-300">
           Explorar

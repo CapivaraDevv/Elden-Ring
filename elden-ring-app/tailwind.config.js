@@ -4,19 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        gold: "var(--gold)",
-        "gold-light": "var(--gold-light)",
-        "gold-dim": "var(--gold-dim)",
+        gold: "rgb(var(--gold) / <alpha-value>)",
+        "gold-light": "rgb(var(--gold-light) / <alpha-value>)",
+        "gold-dim": "rgb(var(--gold-dim) / <alpha-value>)",
 
-        "bg-deep": "var(--bg-deep)",
-        "bg-mid": "var(--bg-mid)",
-        "bg-card": "var(--bg-card)",
+        "bg-deep": "rgb(var(--bg-deep) / <alpha-value>)",
+        "bg-mid": "rgb(var(--bg-mid) / <alpha-value>)",
+        "bg-card": "rgb(var(--bg-card) / <alpha-value>)",
 
-        "text-main": "var(--text-main)",
-        "text-dim": "var(--text-dim)",
+        "text-main": "rgb(var(--text-main) / <alpha-value>)",
+        "text-dim": "rgb(var(--text-dim) / <alpha-value>)",
 
-        "red-rune": "var(--red-rune)",
-        "red-glow": "var(--red-glow)",
+        "red-rune": "rgb(var(--red-rune) / <alpha-value>)",
+        "red-glow": "rgb(var(--red-glow) / <alpha-value>)",
 
         border: "var(--border)",
       },
