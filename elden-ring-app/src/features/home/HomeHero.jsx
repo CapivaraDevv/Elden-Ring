@@ -3,7 +3,6 @@ import useScrollProgress from "../../hooks/useScrollProgress";
 
 export default function HomeHero() {
   const navigate = useNavigate();
-  const corruption = useScrollProgress();
 
   return (
     <div className="flex flex-col items-center pt-8 pb-10">
@@ -27,17 +26,7 @@ export default function HomeHero() {
         </span>
       </button>
 
-      {/* <div className="mt-8 w-full max-w-xl">
-        <div className="h-2 rounded-full bg-slate-800 overflow-hidden">
-          <div
-            className="h-full bg-gold-light transition-all duration-300"
-            style={{ width: `${corruption}%` }}
-          />
-        </div>
-        <p className="mt-3 text-sm text-text-dim text-center">
-          Corrupção: {Math.round(corruption)}%
-        </p>
-      </div> */}
+      
     </div>
   );
 }

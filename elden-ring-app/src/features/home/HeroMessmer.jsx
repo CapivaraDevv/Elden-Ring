@@ -54,8 +54,9 @@ export default function HeroMessmer() {
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full relative overflow-hidden py-16"
+      className="w-full relative py-16"
     >
+      <div className="absolute bottom-0 right-0 z-0 blur-3xl w-60 h-60 rounded-full bg-red-700 opacity-45"/>
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 
         {/* Coluna esquerda: texto */}
@@ -107,18 +108,20 @@ export default function HeroMessmer() {
         </motion.div>
 
         {/* Coluna direita: imagem com 2 camadas de parallax */}
-        <div
-          className="relative h-[480px] md:h-[580px]"
-          style={{
-            maskImage:
-              "radial-gradient(ellipse 82% 90% at 50% 42%, black 35%, transparent 75%), linear-gradient(to top, transparent 0%, black 35%)",
-            maskComposite: "intersect",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 82% 90% at 50% 42%, black 35%, transparent 75%), linear-gradient(to top, transparent 0%, black 35%)",
-            WebkitMaskComposite: "source-in",
-          }}
-        >
-
+        <div className="relative h-[480px] md:h-[580px]">
+          
+          <div
+            className="absolute inset-0"
+            style={{
+              maskImage:
+                "radial-gradient(ellipse 82% 90% at 50% 42%, black 35%, transparent 75%), linear-gradient(to top, transparent 0%, black 35%)",
+              maskComposite: "intersect",
+              WebkitMaskImage:
+                "radial-gradient(ellipse 82% 90% at 50% 42%, black 35%, transparent 75%), linear-gradient(to top, transparent 0%, black 35%)",
+              WebkitMaskComposite: "source-in",
+            }}
+          >
+          
           {/* Camada 1 — corpo */}
           <motion.img
             src={MessmerFundo}
@@ -156,6 +159,7 @@ export default function HeroMessmer() {
             transition={{ duration: 1.8, ease: "easeOut", delay: 0.3 }}
           />
 
+          </div>
         </div>
       </div>
     </section>
