@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PageTransition from "../../components/layout/PageTransition";
 
 const characters = [
   {
@@ -53,6 +54,7 @@ const characters = [
 
 export default function CharactersPage() {
   return (
+    <PageTransition>
     <main className="w-full min-h-screen bg-bg-deep px-6 py-20">
       <div className="max-w-4xl mx-auto">
         <motion.div
@@ -101,5 +103,6 @@ export default function CharactersPage() {
         </div>
       </div>
     </main>
+    </PageTransition>
   );
 }

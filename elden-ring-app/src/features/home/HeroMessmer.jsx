@@ -138,7 +138,7 @@ export default function HeroMessmer() {
           <motion.img
             src={MessmerCorpo}
             alt="Messmer"
-            className="absolute inset-0 blur-md w-full h-full object-contain will-change-transform"
+            className="absolute inset-0 blur-lg w-full h-full object-contain will-change-transform"
             style={{ x: bodyX, y: bodyY, translateY: scrollShift }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

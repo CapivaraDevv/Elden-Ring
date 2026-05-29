@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PageTransition from "../../components/layout/PageTransition";
 
 const locations = [
   {
@@ -53,6 +54,7 @@ const locations = [
 
 export default function LocationsPage() {
   return (
+    <PageTransition>
     <main className="w-full min-h-screen bg-bg-deep px-6 py-20">
       <div className="max-w-5xl mx-auto">
         <motion.div
@@ -98,5 +100,6 @@ export default function LocationsPage() {
         </div>
       </div>
     </main>
+    </PageTransition>
   );
 }

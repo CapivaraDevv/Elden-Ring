@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PageTransition from "../../components/layout/PageTransition";
 
 const stack = [
   "React 19",
@@ -16,6 +17,7 @@ const fadeUp = (delay = 0) => ({
 
 export default function AboutPage() {
   return (
+    <PageTransition>
     <main className="w-full min-h-screen bg-bg-deep flex flex-col items-center justify-center px-6 py-20">
       <div className="max-w-2xl w-full flex flex-col gap-10">
         <motion.div {...fadeUp(0)} className="text-center">
@@ -67,5 +69,6 @@ export default function AboutPage() {
         </motion.p>
       </div>
     </main>
+    </PageTransition>
   );
 }

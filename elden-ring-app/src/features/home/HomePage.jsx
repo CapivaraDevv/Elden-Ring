@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import HomeCards from "./HomeCards";
 import HeroMessmer from "./HeroMessmer";
 import CinematicHero from "./cinematic/CinematicHero";
+import PageTransition from "../../components/layout/PageTransition";
 
 export default function HomePage() {
   return (
+    <PageTransition>
     <div className="flex flex-col items-center">
       <CinematicHero />
 
@@ -40,5 +42,6 @@ export default function HomePage() {
 
       <div className="w-full h-px bg-[linear-gradient(90deg,transparent,#8b1a1a,transparent)]" />
     </div>
+    </PageTransition>
   );
 }

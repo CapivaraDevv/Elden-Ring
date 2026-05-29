@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import LoreHero from "./LoreHero";
+import PageTransition from "../../components/layout/PageTransition";
 
 const chapters = [
   {
@@ -26,6 +27,7 @@ const chapters = [
 
 export default function LorePage() {
   return (
+    <PageTransition>
     <main>
       <LoreHero />
 
@@ -64,5 +66,6 @@ export default function LorePage() {
         </div>
       </section>
     </main>
+    </PageTransition>
   );
 }

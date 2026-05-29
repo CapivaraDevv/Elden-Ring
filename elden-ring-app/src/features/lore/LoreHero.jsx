@@ -33,7 +33,7 @@ export default function LoreHero() {
       </motion.h1>
 
       <motion.p
-        className="hero-text text-gold text-center leading-relaxed max-w-2xl"
+        className="hero-text text-text-dim font-bold text-center leading-relaxed max-w-2xl"
         {...fadeUp(0.6)}
       >
         Houve um tempo em que as Terras Intermédias eram banhadas por uma luz
