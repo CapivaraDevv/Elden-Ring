@@ -5,6 +5,7 @@ import HomePage from "./features/home/HomePage";
 import LorePage from "./features/lore/LorePage";
 import LocationsPage from "./features/locations/LocationsPage";
 import CharactersPage from "./features/characters/CharactersPage";
+import CharacterDetailPage from "./features/characters/CharacterDetailPage";
 import AboutPage from "./features/about/AboutPage";
 
 function AnimatedRoutes() {
@@ -16,6 +17,7 @@ function AnimatedRoutes() {
         <Route path="/lore" element={<LorePage />} />
         <Route path="/locais" element={<LocationsPage />} />
         <Route path="/personagens" element={<CharactersPage />} />
+        <Route path="/personagens/:slug" element={<CharacterDetailPage />} />
         <Route path="/sobre" element={<AboutPage />} />
       </Routes>
     </AnimatePresence>

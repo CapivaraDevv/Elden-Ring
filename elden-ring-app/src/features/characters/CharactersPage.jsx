@@ -1,4 +1,5 @@
 import { useRef, useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   motion,
   useScroll,
@@ -7,17 +8,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import PageTransition from "../../components/layout/PageTransition";
-
-const characters = [
-  { name: "Melina",           role: "A Guia dos Maculados",         epithet: "Cinzas & Promessa",   color: "#e8884c", description: "Filha de Marika e guia misteriosa que encontra o Maculado em sua jornada. Oferece seu dedo como lenha para a Chama Ruinante, sacrificando a própria existência para que o Maculado possa ascender." },
-  { name: "Ranni, a Bruxa",   role: "A Lua Cheia",                  epithet: "Noite & Liberdade",   color: "#6ab4d4", description: "Semideusa que rejeitou o destino da Ordem Dourada. Orquestrou a Noite das Facas Negras, matando seu próprio corpo divino para escapar do controle da Grande Vontade. Busca escrever um destino de liberdade para as Terras Intermédias." },
-  { name: "Radahn",           role: "O General",         epithet: "Gravidade & Glória",  color: "#c45050", description: "O maior guerreiro das Terras Intermédias, domador de cavalos e estudante de gravitação com Ranni. Prendeu as estrelas no céu para proteger o destino de sua irmã. Agora consumido pela Podridão Escarlate após o conflito com Malenia." },
-  { name: "Malenia",          role: "A Lâmina de Miquella",         epithet: "Florescer & Ruína",   color: "#c87a60", description: "Nasceu maldita pela Podridão Escarlate, ainda assim se tornou a guerreira mais temida das Terras Intermédias. Nunca foi derrotada. Seu encontro com Radahn devastou Caelid inteira e ela floresceu pela primeira vez." },
-  { name: "Messmer",          role: "O Portador da Chama Proibida", epithet: "Serpente & Silêncio", color: "#d45020", description: "Filho apagado da história de Marika, exilado na Terra da Sombra. Empunha uma chama de serpente que não conhece misericórdia — devora inimigos e sua própria carne com igual fervor. Guardião implacável dos segredos mais obscuros da deusa." },
-  { name: "Marika, a Eterna", role: "Deusa e Rainha",               epithet: "Anel & Fratura",      color: "#f0d455", description: "Portadora do Elden Ring e rainha imortal das Terras Intermédias. Destruiu o próprio Anel para iniciar a Era das Estrelas — ou foi forçada a fazê-lo. Seu verdadeiro motivo e a extensão de seu sofrimento permanecem entre os maiores mistérios do jogo." },
-  { name: "Godfrey",          role: "O Primeiro Lorde Elden",       epithet: "Punho & Exílio",      color: "#c88a38", description: "O primeiro humano a se tornar Lorde Elden, companheiro de guerra de Marika. Foi exilado após ser despojado da Graça ao completar todas as conquistas. Retorna como Hoarah Loux para reivindicar o que um dia foi seu." },
-  { name: "Miquella",         role: "O Empático",                   epithet: "Sonho & Cura",        color: "#a8c898", description: "Filho de Marika, irmão gêmeo de Malenia. Nasceu maldito pela eterna infância e dedicou sua vida a curar a irmã. De intelecto divino, criou o Árvore de Haligtree — um substituto para a Térvore livre da influência de Marika." },
-];
+import { characters } from "./charactersData";
 
 export default function CharactersPage() {
   const containerRef = useRef(null);  
@@ -264,13 +255,14 @@ function CharacterRow({ char, index, reduce }) {
           >
             <span>Entrada {String(index + 1).padStart(2, "0")}</span>
             <span className="flex-1 h-px" style={{ background: `${char.color}26` }} />
-            <button
+            <Link
+              to={`/personagens/${char.slug}`}
               className="inline-flex items-center gap-3 transition-colors duration-300"
               style={{ color: hover ? char.color : "rgba(232,217,176,0.6)" }}
             >
               Ler crônica
-              <span className="block w-6 h-px bg-current transition-all duration-300" />
-            </button>
+              <span className="block w-6 h-px bg-current transition-all duration-300 group-hover:w-10" />
+            </Link>
           </div>
         </div>
       </div>
