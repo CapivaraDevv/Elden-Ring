@@ -21,9 +21,6 @@ export default function AboutPage() {
     <main className="w-full min-h-screen bg-bg-deep flex flex-col items-center justify-center px-6 py-20">
       <div className="max-w-2xl w-full flex flex-col gap-10">
         <motion.div {...fadeUp(0)} className="text-center">
-          <p className="hero-text text-[10px] text-gold-dim tracking-[0.5em] uppercase mb-4 opacity-60">
-            Este projeto
-          </p>
           <h1
             className="hero-title text-4xl md:text-5xl text-gold-light mb-6"
             style={{ animation: "none" }}

@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import LoreHero from "./LoreHero";
 import PageTransition from "../../components/layout/PageTransition";
 
@@ -25,47 +26,112 @@ const chapters = [
   },
 ];
 
+const THRESHOLDS = chapters.map((_, i) => i / chapters.length);
+
 export default function LorePage() {
+  const sectionRef = useRef(null);
+  const [revealed, setRevealed] = useState(chapters.map(() => false));
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setRevealed((prev) => {
+      const next = chapters.map((_, i) => prev[i] || latest >= THRESHOLDS[i]);
+      if (next.every((v, i) => v === prev[i])) return prev;
+      return next;
+    });
+  });
+
   return (
     <PageTransition>
-    <main>
-      <LoreHero />
+      <main>
+        <LoreHero />
 
-      <section className="w-full bg-bg-deep px-6 py-24">
-        <div className="max-w-3xl mx-auto flex flex-col gap-16">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <p className="hero-text text-[9px] text-gold-dim tracking-[0.5em] uppercase opacity-50">
-              Fragmentos da história
-            </p>
-            <div className="w-16 h-px bg-gold/20 mx-auto mt-4" />
-          </motion.div>
+        <section ref={sectionRef} className="w-full bg-bg-deep px-6 py-24">
+          <div className="max-w-3xl mx-auto flex flex-col gap-16">
 
-          {chapters.map((chapter, i) => (
-            <motion.article
-              key={chapter.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.07 }}
-              className="border-l border-gold/20 pl-8"
+              transition={{ duration: 0.8 }}
+              className="text-center"
             >
-              <h2 className="hero-title text-xl text-gold mb-4" style={{ animation: "none" }}>
-                {chapter.title}
-              </h2>
-              <p className="hero-text text-sm text-text-main leading-relaxed opacity-80">
-                {chapter.text}
+              <p className="hero-text text-[9px] text-gold-dim tracking-[0.5em] uppercase opacity-50">
+                Fragmentos da história
               </p>
-            </motion.article>
-          ))}
-        </div>
-      </section>
-    </main>
+              <div className="w-16 h-px bg-gold/20 mx-auto mt-4" />
+            </motion.div>
+
+            <div className="flex gap-10">
+
+              {/* Timeline: track + checkpoints + connectors */}
+              <div className="flex-shrink-0 flex flex-col items-center" style={{ width: 20 }}>
+                {chapters.map((_, i) => (
+                  <div key={i} className="flex flex-col items-center" style={{ flex: 1 }}>
+                    {/* Checkpoint diamond */}
+                    <motion.div
+                      className="flex-shrink-0"
+                      style={{ width: 11, height: 11, rotate: 45, border: "1px solid" }}
+                      animate={{
+                        backgroundColor: revealed[i]
+                          ? "rgba(201,168,76,0.75)"
+                          : "rgba(8,6,4,1)",
+                        borderColor: revealed[i]
+                          ? "rgba(201,168,76,1)"
+                          : "rgba(201,168,76,0.2)",
+                        boxShadow: revealed[i]
+                          ? "0 0 10px rgba(201,168,76,0.5)"
+                          : "none",
+                      }}
+                      transition={{ duration: 0.5 }}
+                    />
+
+                    {/* Connector line between checkpoints */}
+                    {i < chapters.length - 1 && (
+                      <div className="relative flex-1 my-2" style={{ width: 1, background: "rgba(201,168,76,0.1)" }}>
+                        <motion.div
+                          className="absolute top-0 left-0 w-full origin-top"
+                          style={{ background: "rgba(201,168,76,0.55)" }}
+                          animate={{ scaleY: revealed[i + 1] ? 1 : 0 }}
+                          transition={{ duration: 0.7, ease: "easeOut" }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Chapters */}
+              <div className="flex flex-col gap-16 flex-1">
+                {chapters.map((chapter, i) => (
+                  <motion.article
+                    key={chapter.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={revealed[i] ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className="min-h-[100px]"
+                  >
+                    <h2
+                      className="hero-title text-xl text-gold mb-4"
+                      style={{ animation: "none" }}
+                    >
+                      {chapter.title}
+                    </h2>
+                    <p className="hero-text text-sm text-text-main leading-relaxed opacity-80">
+                      {chapter.text}
+                    </p>
+                  </motion.article>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </main>
     </PageTransition>
   );
 }

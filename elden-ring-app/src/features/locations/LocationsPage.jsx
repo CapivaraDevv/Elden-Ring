@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import PageTransition from "../../components/layout/PageTransition";
 
@@ -52,54 +53,98 @@ const locations = [
   },
 ];
 
+function LocationCard({ loc, index }) {
+  const cardRef = useRef(null);
+  const overlayRef = useRef(null);
+  const rafRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null;
+      if (!cardRef.current || !overlayRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const gradient = `radial-gradient(circle at ${x}px ${y}px, transparent 0px, rgba(8,6,4,0.97) 130px)`;
+      overlayRef.current.style.maskImage = gradient;
+      overlayRef.current.style.webkitMaskImage = gradient;
+    });
+  };
+
+  const handleMouseLeave = () => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    if (overlayRef.current) {
+      overlayRef.current.style.maskImage = "none";
+      overlayRef.current.style.webkitMaskImage = "none";
+    }
+  };
+
+  return (
+    <motion.article
+      ref={cardRef}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, delay: index * 0.06 }}
+      className="relative p-8 border border-border bg-bg-card hover:border-gold/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-crosshair"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <span className="hero-text text-[9px] text-gold-dim tracking-[0.4em] uppercase opacity-60">
+        {loc.detail}
+      </span>
+      <h2
+        className="hero-title text-xl text-gold mt-2 mb-4"
+        style={{ animation: "none" }}
+      >
+        {loc.name}
+      </h2>
+      <p className="text-sm text-text-dim leading-relaxed">{loc.description}</p>
+
+      {/* Overlay escuro — esconde o conteúdo; mask-image abre o círculo no cursor */}
+      <div
+        ref={overlayRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "rgba(8,6,4,0.97)" }}
+      />
+    </motion.article>
+  );
+}
+
 export default function LocationsPage() {
   return (
     <PageTransition>
-    <main className="w-full min-h-screen bg-bg-deep px-6 py-20">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-          className="text-center mb-16"
-        >
-          <p className="hero-text text-[10px] text-gold-dim tracking-[0.5em] uppercase mb-4 opacity-60">
-            Terras Intermédias
-          </p>
-          <h1
-            className="hero-title text-4xl md:text-5xl text-gold-light mb-6"
-            style={{ animation: "none" }}
+      <main className="w-full min-h-screen bg-bg-deep px-6 py-20">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9 }}
+            className="text-center mb-16"
           >
-            Locais
-          </h1>
-          <div className="w-16 h-px bg-gold/30 mx-auto" />
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {locations.map((loc, i) => (
-            <motion.article
-              key={loc.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.06 }}
-              className="p-8 border border-border bg-bg-card hover:border-gold/40 hover:-translate-y-1 transition-all duration-300"
+            <p className="hero-text text-[10px] text-gold-dim tracking-[0.5em] uppercase mb-4 opacity-60">
+              Terras Intermédias
+            </p>
+            <h1
+              className="hero-title text-4xl md:text-5xl text-gold-light mb-6"
+              style={{ animation: "none" }}
             >
-              <span className="hero-text text-[9px] text-gold-dim tracking-[0.4em] uppercase opacity-60">
-                {loc.detail}
-              </span>
-              <h2
-                className="hero-title text-xl text-gold mt-2 mb-4"
-                style={{ animation: "none" }}
-              >
-                {loc.name}
-              </h2>
-              <p className="text-sm text-text-dim leading-relaxed">{loc.description}</p>
-            </motion.article>
-          ))}
+              Locais
+            </h1>
+            <div className="w-16 h-px bg-gold/30 mx-auto" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {locations.map((loc, i) => (
+              <LocationCard key={loc.name} loc={loc} index={i} />
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
     </PageTransition>
   );
 }
