@@ -43,14 +43,14 @@ export default function CharacterDetailPage() {
               "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>\")",
           }}
         />
-        <div>
-          <div></div>
+        {char.img && (
           <img
             src={char.img}
             alt=""
-            className="absolute right-0 w-[650px] h-[650px]"
+            className="absolute right-0 object-contain"
+            style={{ width: char.imgSize ?? "650px", height: char.imgSize ?? "650px", ...char.imgStyle }}
           />
-        </div>
+        )}
         <div className="pointer-events-none fixed inset-0 z-[55] bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
 
         <HeroSection char={char} />
@@ -71,6 +71,8 @@ function HeroSection({ char }) {
   });
   const y = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 180]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const [hovered, setHovered] = useState(false);
+
 
   return (
     <section
@@ -141,6 +143,7 @@ function HeroSection({ char }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="font-serif italic font-light leading-[0.85] tracking-[-0.02em] text-[clamp(3.5rem,12vw,11rem)] text-[#e8d9b0]"
+          style={{ color: hovered ? char.color : `${char.color}` }}
         >
           {char.name}
         </motion.h1>

@@ -1,4 +1,5 @@
 import Radahn from '../../assets/Radahn.png'
+import Messmer from '../../assets/MessmerSemFundo.png'
 
 export const characters = [
   {
@@ -41,6 +42,8 @@ Sua relação com o Maculado é ambígua: ela usa, mas também confia. Ela manip
     name: "Radahn",
     slug: "radahn",
     img: Radahn,
+    imgStyle: { top: 0, objectPosition: "top" },
+    imgSize: "650px",
     role: "O General",
     epithet: "Gravidade & Glória",
     color: "#c45050",
@@ -79,6 +82,9 @@ Ela não vê isso como derrota. Ela ainda não viu derrota. Mas o custo do flore
   {
     name: "Messmer",
     slug: "messmer",
+    img: Messmer,
+    imgStyle: { top: "-20%", right: "-20%", objectPosition: "center", opacity: "80%"},
+    imgSize: "1250px",
     role: "O Portador da Chama Proibida",
     epithet: "Serpente & Silêncio",
     color: "#d45020",
