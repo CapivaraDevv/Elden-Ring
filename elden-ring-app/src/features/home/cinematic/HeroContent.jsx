@@ -83,17 +83,13 @@ export default function HeroContent() {
         ))}
       </motion.h1>
 
-      <motion.div {...fadeUp(0.8)} className="mb-8">
-        <GoldDivider />
-      </motion.div>
-
       <motion.p
         {...fadeUp(1.0)}
-        className="hero-text text-sm md:text-base text-text-main max-w-md leading-[1.9] mb-12 opacity-65"
+        className="hero-text text-sm md:text-base text-text-main max-w-3xl leading-[1.9] mb-12 opacity-65"
       >
         Nas Terras Intermédias, onde a Graça Dourada se fragmentou, o destino de
         um Maculado começa. Reúna os fragmentos. Ascenda ao trono. Torne-se o
-        Lorde do Elden Ring.
+        Lorde Prístino.
       </motion.p>
 
       <motion.button
@@ -126,7 +122,7 @@ export default function HeroContent() {
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="hero-text text-[9px] text-gold-dim tracking-[0.4em] uppercase opacity-35">
+          <span className="hero-text text-[14px] text-gold-dim tracking-[0.4em] uppercase ">
             Descer
           </span>
           <div className="w-px h-10 bg-gradient-to-b from-gold/25 to-transparent" />

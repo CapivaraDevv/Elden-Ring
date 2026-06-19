@@ -81,29 +81,14 @@ export default function HeroMessmer() {
     glowY.set(50);
   };
 
-  // const glowBackground = useTransform(
-  //   [glowX, glowY],
-  //   ([x, y]) =>
-  //     `radial-gradient(420px circle at ${x}% ${y}%, rgba(180,30,30,0.28), transparent 60%)`
-  // );
-
   return (
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full relative py-20 overflow-hidden"
+      className="w-full relative  overflow-hidden"
       aria-labelledby="messmer-title"
     >
-      <div
-        aria-hidden="true"
-        className="absolute bottom-0 right-0 z-0 blur-3xl w-72 h-72 rounded-full bg-red-700/40"
-      />
-      {/* <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{ background: glowBackground }}
-      /> */}
 
       <motion.div
         style={{ opacity: heroOpacity, scale: heroScale }}

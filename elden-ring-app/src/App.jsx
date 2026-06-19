@@ -7,6 +7,7 @@ import LocationsPage from "./features/locations/LocationsPage";
 import CharactersPage from "./features/characters/CharactersPage";
 import CharacterDetailPage from "./features/characters/CharacterDetailPage";
 import AboutPage from "./features/about/AboutPage";
+import NotFoundPage from "./features/not-found/NotFoundPage";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function AnimatedRoutes() {
         <Route path="/personagens" element={<CharactersPage />} />
         <Route path="/personagens/:slug" element={<CharacterDetailPage />} />
         <Route path="/sobre" element={<AboutPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </AnimatePresence>
   );

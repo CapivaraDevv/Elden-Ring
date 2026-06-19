@@ -19,11 +19,11 @@ export default function HomePage() {
             transition={{ duration: 0.9 }}
             className="text-center"
           >
-            <p className="hero-text text-[10px] text-gold-dim tracking-[0.5em] uppercase opacity-60 mb-3">
+            <p className="hero-text text-[18px] text-gold-dim tracking-[0.5em] uppercase mb-3">
               O Universo
             </p>
             <h2
-              className="hero-title text-3xl text-gold-light"
+              className="hero-title text-4xl text-gold-light"
               style={{ animation: "none" }}
             >
               Fragmentos das Terras Intermédias

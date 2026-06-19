@@ -19,14 +19,14 @@ export default function HomeCards() {
   ];
 
   return (
-    <div className="grid grid-cols-2 p-8 w-[900px] gap-8 mb-12 perspective">
+    <div className="grid grid-cols-1 sm:grid-cols-2 p-8 w-full max-w-[900px] gap-8 mb-12 perspective">
       {cards.map((card) => (
         <article
           key={card.title}
           className="p-8 cursor-pointer border border-border bg-bg-card hover:border-gold-dim duration-300 hover:-translate-y-1 hover:bg-[linear-gradient(135deg,rgba(201,168,76,0.04),transparent)] transition-all"
         >
-          <h2 className="hero-title font-bold text-gold py-4">{card.title}</h2>
-          <p className="leading-tight text-sm text-text-dim">{card.body}</p>
+          <h2 className="hero-title font-bold text-gold">{card.title}</h2>
+          <p className="leading-tight text-sm text-text-dim pt-3">{card.body}</p>
         </article>
       ))}
     </div>

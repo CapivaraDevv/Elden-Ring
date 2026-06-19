@@ -8,9 +8,18 @@ import {
 } from "framer-motion";
 import PageTransition from "../../components/layout/PageTransition";
 import { characters } from "./charactersData";
+import { useEffect } from "react";
 
 export default function CharacterDetailPage() {
   const { slug } = useParams();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "instant"
+    }) 
+  }, [slug])
+
   const char = characters.find((c) => c.slug === slug);
 
   if (!char) {
@@ -119,10 +128,9 @@ function HeroSection({ char }) {
         >
           <Link
             to="/personagens"
-            className="inline-flex items-center gap-3 text-[10px] tracking-[0.4em] uppercase text-[#e8d9b0]/40 hover:text-[#c9a84c] transition-colors duration-300"
+            className="inline-flex items-center gap-3 text-[14px] tracking-[0.4em] uppercase text-[#e8d9b0] hover:text-[#c9a84c] transition-colors duration-300"
           >
-            <span className="block w-8 h-px bg-current" />
-            Compêndio
+            Voltar ao compêndio
           </Link>
         </motion.div>
 
