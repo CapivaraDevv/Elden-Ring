@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent, scale } from "framer-motion";
 import LoreHero from "./LoreHero";
 import PageTransition from "../../components/layout/PageTransition";
 
@@ -60,10 +60,20 @@ export default function LorePage() {
               transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <p className="hero-text text-[9px] text-gold-dim tracking-[0.5em] uppercase opacity-50">
+              <p className="hero-text text-[20px] text-gold tracking-[0.5em] uppercase ">
                 Fragmentos da história
               </p>
-              <div className="w-16 h-px bg-gold/20 mx-auto mt-4" />
+              <motion.div 
+                initial={{ scaleX: 0}}
+                whileInView={{ scaleX: 1}}
+                viewport={{ once: true }} 
+                transition={{
+                  duration: 2,
+                  ease: [0.22, 1, 0.36, 1],
+                }} 
+                style={{ transformOrigin: "center"}}
+                className="w-[310px] h-px bg-gold/20 mx-auto mt-4" 
+              />
             </motion.div>
 
             <div className="flex gap-10">

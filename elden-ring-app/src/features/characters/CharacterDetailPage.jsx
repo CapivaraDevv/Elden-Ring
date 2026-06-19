@@ -139,8 +139,8 @@ function HeroSection({ char }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-[10px] tracking-[0.5em] uppercase mb-6"
-          style={{ color: `${char.color}b3` }}
+          className="text-[14px] tracking-[0.5em] uppercase mb-6"
+          style={{ color: `${char.color}ff` }}
         >
           {char.epithet}
         </motion.p>
@@ -162,7 +162,7 @@ function HeroSection({ char }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-6 text-base md:text-lg font-light"
-          style={{ color: `${char.color}99` }}
+          style={{ color: `${char.color}ff` }}
         >
           {char.role}
         </motion.p>

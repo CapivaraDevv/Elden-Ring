@@ -67,7 +67,7 @@ export default function LoreHero() {
       </motion.h1>
 
       <motion.p
-        className="hero-text text-text-dim font-bold text-center leading-relaxed max-w-2xl relative z-10"
+        className="hero-text text-text-dim font-bold text-center leading-relaxed max-w-3xl relative z-10"
         {...fadeUp(0.6)}
       >
         Houve um tempo em que as Terras Intermédias eram banhadas por uma luz
@@ -86,11 +86,21 @@ export default function LoreHero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.9 }}
       >
-        <div className="w-8 h-px bg-gold/20" />
+        <div className="w-36 h-px bg-gold/20" />
         <div className="w-1 h-1 rotate-45 bg-gold/30" />
-        <div className="w-8 h-px bg-gold/20" />
+        <div className="w-36 h-px bg-gold/20" />
       </motion.div>
 
+      <motion.div
+        className="flex items-center gap-4 mt-2 relative z-10"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.9 }}
+      >
+        <div className="relative w-36 h-36 left-28 rounded-full border border-gold/40" />
+        <div className="relative w-36 h-36 -top-20 rounded-full border border-gold/40" />
+        <div className="relative w-36 h-36 right-28 rounded-full border border-gold/40" />
+      </motion.div>
     </section>
   );
 }
