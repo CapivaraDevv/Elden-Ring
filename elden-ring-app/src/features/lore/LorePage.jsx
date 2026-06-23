@@ -52,7 +52,6 @@ export default function LorePage() {
 
         <section ref={sectionRef} className="w-full bg-bg-deep px-6 py-24">
           <div className="max-w-3xl mx-auto flex flex-col gap-16">
-
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -63,29 +62,32 @@ export default function LorePage() {
               <p className="hero-text text-[20px] text-gold tracking-[0.5em] uppercase ">
                 Fragmentos da história
               </p>
-              <motion.div 
-                initial={{ scaleX: 0}}
-                whileInView={{ scaleX: 1}}
-                viewport={{ once: true }} 
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
                 transition={{
                   duration: 2,
                   ease: [0.22, 1, 0.36, 1],
-                }} 
-                style={{ transformOrigin: "center"}}
-                className="w-[310px] h-px bg-gold/20 mx-auto mt-4" 
+                }}
+                style={{ transformOrigin: "center" }}
+                className="w-[310px] h-px bg-gold/20 mx-auto mt-4"
               />
             </motion.div>
 
-            <div className="flex gap-10">
-
-              {/* Timeline: track + checkpoints + connectors */}
-              <div className="flex-shrink-0 flex flex-col items-center" style={{ width: 20 }}>
-                {chapters.map((_, i) => (
-                  <div key={i} className="flex flex-col items-center" style={{ flex: 1 }}>
-                    {/* Checkpoint diamond */}
+            <div className="flex flex-col">
+              {chapters.map((chapter, i) => (
+                <div key={chapter.title} className="flex gap-10">
+                  {/* Timeline */}
+                  <div className="flex flex-col items-center flex-shrink-0 w-5">
                     <motion.div
                       className="flex-shrink-0"
-                      style={{ width: 11, height: 11, rotate: 45, border: "1px solid" }}
+                      style={{
+                        width: 11,
+                        height: 11,
+                        rotate: 45,
+                        border: "1px solid",
+                      }}
                       animate={{
                         backgroundColor: revealed[i]
                           ? "rgba(201,168,76,0.75)"
@@ -100,30 +102,44 @@ export default function LorePage() {
                       transition={{ duration: 0.5 }}
                     />
 
-                    {/* Connector line between checkpoints */}
                     {i < chapters.length - 1 && (
-                      <div className="relative flex-1 my-2" style={{ width: 1, background: "rgba(201,168,76,0.1)" }}>
+                      <div
+                        className="relative w-px flex-1 mt-2"
+                        style={{
+                          minHeight: 120,
+                          background: "rgba(201,168,76,0.1)",
+                        }}
+                      >
                         <motion.div
                           className="absolute top-0 left-0 w-full origin-top"
-                          style={{ background: "rgba(201,168,76,0.55)" }}
-                          animate={{ scaleY: revealed[i + 1] ? 1 : 0 }}
-                          transition={{ duration: 0.7, ease: "easeOut" }}
+                          style={{
+                            background: "rgba(201,168,76,0.55)",
+                          }}
+                          animate={{
+                            scaleY: revealed[i + 1] ? 1 : 0,
+                          }}
+                          transition={{
+                            duration: 0.7,
+                            ease: "easeOut",
+                          }}
                         />
                       </div>
                     )}
                   </div>
-                ))}
-              </div>
 
-              {/* Chapters */}
-              <div className="flex flex-col gap-16 flex-1">
-                {chapters.map((chapter, i) => (
+                  {/* Chapter */}
                   <motion.article
-                    key={chapter.title}
                     initial={{ opacity: 0, x: -20 }}
-                    animate={revealed[i] ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                    transition={{ duration: 0.7, ease: "easeOut" }}
-                    className="min-h-[100px]"
+                    animate={
+                      revealed[i]
+                        ? { opacity: 1, x: 0 }
+                        : { opacity: 0, x: -20 }
+                    }
+                    transition={{
+                      duration: 0.7,
+                      ease: "easeOut",
+                    }}
+                    className="pb-16 flex-1"
                   >
                     <h2
                       className="hero-title text-xl text-gold mb-4"
@@ -131,13 +147,13 @@ export default function LorePage() {
                     >
                       {chapter.title}
                     </h2>
+
                     <p className="hero-text text-sm text-text-main leading-relaxed opacity-80">
                       {chapter.text}
                     </p>
                   </motion.article>
-                ))}
-              </div>
-
+                </div>
+              ))}
             </div>
           </div>
         </section>

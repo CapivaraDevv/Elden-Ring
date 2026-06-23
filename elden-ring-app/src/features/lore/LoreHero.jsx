@@ -10,7 +10,6 @@ const fadeUp = (delay = 0) => ({
 export default function LoreHero() {
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-bg-deep px-6 py-20 gap-6 overflow-hidden">
-
       {/* Glow radial central */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -72,11 +71,11 @@ export default function LoreHero() {
       >
         Houve um tempo em que as Terras Intermédias eram banhadas por uma luz
         perpétua. O Elden Ring, um amálgama de runas concebido pela Grande
-        Vontade, servia como a âncora da realidade. Dele, brotou a Térvore:
-        uma árvore de ouro colossal que garantia vida, ordem e uma bênção que
-        transcendia a própria morte. Sob o reinado da Rainha Marika, a Eterna,
-        o destino era previsível e sagrado. A morte não era um fim, mas um
-        retorno às raízes da árvore.
+        Vontade, servia como a âncora da realidade. Dele, brotou a Térvore: uma
+        árvore de ouro colossal que garantia vida, ordem e uma bênção que
+        transcendia a própria morte. Sob o reinado da Rainha Marika, a Eterna, o
+        destino era previsível e sagrado. A morte não era um fim, mas um retorno
+        às raízes da árvore.
       </motion.p>
 
       {/* Linha decorativa inferior */}
@@ -92,14 +91,20 @@ export default function LoreHero() {
       </motion.div>
 
       <motion.div
-        className="flex items-center gap-4 mt-2 relative z-10"
+        className="relative flex items-center justify-center mt-56 z-10 "
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.9 }}
       >
-        <div className="relative w-36 h-36 left-28 rounded-full border border-gold/40" />
-        <div className="relative w-36 h-36 -top-20 rounded-full border border-gold/40" />
-        <div className="relative w-36 h-36 right-28 rounded-full border border-gold/40" />
+        <div className="absolute w-28 h-28 -left-4 rounded-full border-2 border-gold" />
+
+        <div className="absolute w-28 h-28 -top-28 rounded-full border-2 border-gold" />
+        <div className="absolute w-[2px] h-56 -top-44 bg-gold" />
+        <div className="absolute -top-[334px] w-40 h-40 rounded-full border-2 border-gold border-b-transparent border-l-transparent border-r-transparent transform rotate-180" />
+        {/* <div className="absolute -top-[210px] w-6 h-4 rounded-full border-2 border-gold/80  transform rotate-180" /> */}
+        <div className="absolute w-28 h-28 -top-[73px] rounded-full border-2 border-gold" />
+
+        <div className="absolute w-28 h-28 -right-4 rounded-full border-2 border-gold" />
       </motion.div>
     </section>
   );
