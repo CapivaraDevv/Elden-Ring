@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, transform } from "framer-motion";
 import FogLayer from "../home/cinematic/FogLayer";
 
 const fadeUp = (delay = 0) => ({
@@ -6,6 +6,18 @@ const fadeUp = (delay = 0) => ({
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.9, ease: "easeOut", delay },
 });
+
+const fadeLeft = (delay = 0) => ({
+  initial: { opacity: 0, x: -60},
+  animate: { opacity: 1, x: 0},
+  transition: { duration: 0.9, ease: "easeOut", delay}
+})
+
+const fadeRight = (delay = 0) => ({
+  initial: { opacity: 0, x: 60},
+  animate: { opacity: 1, x: 0},
+  transition: { duration: 0.9, ease: "easeOut", delay}
+})
 
 export default function LoreHero() {
   return (
@@ -96,15 +108,23 @@ export default function LoreHero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.9 }}
       >
-        <div className="absolute w-28 h-28 -left-4 rounded-full border-2 border-gold" />
+        <div className="absolute z-10 w-28 h-28 -left-4 rounded-full border-2 border-gold" />
 
-        <div className="absolute w-28 h-28 -top-28 rounded-full border-2 border-gold" />
-        <div className="absolute w-[2px] h-56 -top-44 bg-gold" />
-        <div className="absolute -top-[334px] w-40 h-40 rounded-full border-2 border-gold border-b-transparent border-l-transparent border-r-transparent transform rotate-180" />
-        {/* <div className="absolute -top-[210px] w-6 h-4 rounded-full border-2 border-gold/80  transform rotate-180" /> */}
-        <div className="absolute w-28 h-28 -top-[73px] rounded-full border-2 border-gold" />
+        <div className="absolute z-10 w-[2px] h-56 -top-44 bg-gold" />
+        <div className="absolute z-10 -top-[334px] w-40 h-40 rounded-full border-2 border-gold border-b-transparent border-l-transparent border-r-transparent transform rotate-180" />
+    
+        <div className="absolute z-10 w-28 h-28 -top-28 rounded-full border-2 border-gold" />
+        <div className="absolute z-10 w-28 h-28 -top-[73px] rounded-full border-2 border-gold" />
 
-        <div className="absolute w-28 h-28 -right-4 rounded-full border-2 border-gold" />
+        <div className="absolute z-10 w-28 h-28 -right-4 rounded-full border-2 border-gold" />
+        
+        <motion.div className="absolute text-[100px] -top-56 w-48 right-32 z-0 text-text-main/20"
+          {...fadeLeft(0.9)}  
+        >ELDEN</motion.div>
+        <motion.div className="absolute text-[100px] -top-56 w-48 -right-48 z-0 text-text-main/20"
+          {...fadeRight(0.9)}
+        >LORD</motion.div>
+        
       </motion.div>
     </section>
   );
