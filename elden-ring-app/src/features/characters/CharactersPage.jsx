@@ -11,11 +11,15 @@ import PageTransition from "../../components/layout/PageTransition";
 import { characters } from "./charactersData";
 
 export default function CharactersPage() {
-  const containerRef = useRef(null);  
+  const containerRef = useRef(null);
   const reduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll({ target: containerRef });
-  const progress = useSpring(scrollYProgress, { stiffness: 80, damping: 20, mass: 0.3 });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 20,
+    mass: 0.3,
+  });
 
   return (
     <PageTransition>
@@ -32,7 +36,7 @@ export default function CharactersPage() {
               "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>\")",
           }}
         />
-        <div className="pointer-events-none fixed inset-0 z-[55] bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
+        {/* <div className="pointer-events-none fixed inset-0 z-[55] bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" /> */}
 
         {/* SCROLL PROGRESS BAR */}
         <motion.div
@@ -82,7 +86,10 @@ export default function CharactersPage() {
 /* ────────────────────────────── HERO ────────────────────────────── */
 function Hero({ reduce }) {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
   const y = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
@@ -105,9 +112,12 @@ function Hero({ reduce }) {
         className="absolute inset-x-0 top-1/2 -z-10 h-px bg-gradient-to-r from-transparent via-[#c9a84c]/40 to-transparent"
       />
 
-      <motion.div style={{ y, opacity }} className="relative w-full max-w-[1400px] mx-auto">
+      <motion.div
+        style={{ y, opacity }}
+        className="relative w-full max-w-[1400px] mx-auto"
+      >
         <div className="flex items-center gap-4 mb-8">
-          <span className="block w-12 h-px bg-[#c9a84c]/60" />
+          {/* <span className="block w-12 h-px bg-[#c9a84c]/60" /> */}
           <p className="text-[16px] tracking-[0.5em] uppercase text-[#c9a84c]/80">
             Figuras das Terras Intermédias
           </p>
@@ -170,7 +180,11 @@ function CharacterRow({ char, index, reduce }) {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const numY = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [60, -60]);
+  const numY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? [0, 0] : [60, -60],
+  );
   const lineScale = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
 
   const flipped = index % 2 === 1;
@@ -199,7 +213,7 @@ function CharacterRow({ char, index, reduce }) {
         >
           <div className="relative">
             <span
-              className="block font-serif italic font-extralight text-[clamp(6rem,14vw,12rem)] leading-none text-transparent bg-clip-text"
+              className="block font-serif italic font-extralight text-[clamp(6rem,12vw,12rem)] leading-none text-transparent bg-clip-text"
               style={{
                 backgroundImage: `linear-gradient(to bottom, ${char.color}b3, ${char.color}33, transparent)`,
               }}
@@ -208,8 +222,14 @@ function CharacterRow({ char, index, reduce }) {
             </span>
             <motion.span
               aria-hidden
-              style={{ scaleX: lineScale, transformOrigin: "0% 50%", backgroundColor: `${char.color}99` }}
-              className="block h-px w-full mt-2"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="block h-px w-full mt-2 origin-left"
+              style={{
+                backgroundColor: `${char.color}99`,
+              }}
             />
             <span
               className="block mt-4 text-[10px] tracking-[0.5em] uppercase"
@@ -240,7 +260,9 @@ function CharacterRow({ char, index, reduce }) {
                 animate={{ height: hover ? "100%" : "30%" }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="block w-px"
-                style={{ background: `linear-gradient(to bottom, ${char.color}b3, transparent)` }}
+                style={{
+                  background: `linear-gradient(to bottom, ${char.color}b3, transparent)`,
+                }}
               />
             </div>
             <p className="col-span-12 md:col-span-9 text-base md:text-lg leading-[1.7] font-light text-[#e8d9b0]/70 max-w-[58ch]">
@@ -254,14 +276,23 @@ function CharacterRow({ char, index, reduce }) {
             style={{ color: `${char.color}66` }}
           >
             <span>Entrada {String(index + 1).padStart(2, "0")}</span>
-            <span className="flex-1 h-px" style={{ background: `${char.color}26` }} />
+            <span
+              className="flex-1 h-px"
+              style={{ background: `${char.color}26` }}
+            />
             <Link
               to={`/personagens/${char.slug}`}
               className="inline-flex items-center gap-3 transition-colors duration-300"
               style={{ color: hover ? char.color : "rgba(232,217,176,0.6)" }}
             >
               Ler crônica
-              <span className="block w-6 h-px bg-current transition-all duration-300 group-hover:w-10" />
+              <span
+                className="block h-px transition-all duration-300"
+                style={{
+                  width: hover ? "2.5rem" : "1.5rem",
+                  backgroundColor: hover ? char.color : "rgba(232,217,176,0.6)",
+                }}
+              />
             </Link>
           </div>
         </div>
@@ -279,7 +310,11 @@ function SplitName({ name, hover, color }) {
         <motion.span
           key={i}
           animate={{ y: hover ? -6 : 0, color: hover ? color : "#e8d9b0" }}
-          transition={{ duration: 0.5, delay: i * 0.015, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 0.5,
+            delay: i * 0.015,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="inline-block"
         >
           {l === " " ? " " : l}

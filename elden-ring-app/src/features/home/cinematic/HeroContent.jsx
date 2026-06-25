@@ -51,7 +51,7 @@ export default function HeroContent() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center text-center px-6 py-20 max-w-4xl mx-auto">
+    <div className="flex flex-col items-center text-center px-6 py-16 max-w-4xl mx-auto">
 
       <motion.span
         {...fadeUp(0.1)}
@@ -110,24 +110,6 @@ export default function HeroContent() {
         <span className="relative z-10 text-lg">Iniciar Jornada</span>
       </motion.button>
 
-      {/* Scroll indicator — fora dos stagger variants para evitar conflito */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.6, duration: 1.2 }}
-        className="mt-20"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
-        >
-          <span className="hero-text text-[14px] text-gold-dim tracking-[0.4em] uppercase ">
-            Descer
-          </span>
-          <div className="w-px h-10 bg-gradient-to-b from-gold/25 to-transparent" />
-        </motion.div>
-      </motion.div>
     </div>
   );
 }

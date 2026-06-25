@@ -128,13 +128,13 @@ export default function HeroMessmer() {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-            className="w-16 h-px origin-left opacity-40"
+            className="w-4/6 h-px origin-left"
             style={{ background: "rgb(var(--red-rune))" }}
           />
 
           <p className="hero-text text-sm text-text-dim leading-relaxed max-w-sm">
             Filho apagado da história de Marika, exilado na Terra da Sombra.
-            Empunha uma chama de serpente que devora tudo o que toca — inimigos,
+            Empunha uma chama de serpente que devora tudo o que toca: inimigos,
             memórias e sua própria carne. Guardião implacável dos segredos mais
             obscuros da deusa.
           </p>
@@ -143,9 +143,9 @@ export default function HeroMessmer() {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => navigate("/personagens")}
-            className="group relative self-start mt-2 px-9 py-3 hero-text text-[10px] tracking-[0.4em] uppercase overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-red-700/50"
+            className="group relative self-start mt-2 p-3 hero-text text-[10px] tracking-[0.4em] uppercase overflow-hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-red-700/50"
             style={{
-              color: "rgb(var(--red-rune))",
+              color: "#ff4d4d",
               border: "1px solid rgba(var(--red-rune), 0.3)",
             }}
           >

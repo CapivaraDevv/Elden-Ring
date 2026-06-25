@@ -40,7 +40,7 @@ export default function HomePage() {
         <HeroMessmer />
       </div>
 
-      <div className="w-full h-px bg-[linear-gradient(90deg,transparent,#8b1a1a,transparent)]" />
+      {/* <div className="w-full h-px bg-[linear-gradient(90deg,transparent,#8b1a1a,transparent)]" /> */}
     </div>
     </PageTransition>
   );

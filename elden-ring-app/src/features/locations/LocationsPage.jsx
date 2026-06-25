@@ -126,16 +126,25 @@ export default function LocationsPage() {
             transition={{ duration: 0.9 }}
             className="text-center mb-16"
           >
-            <p className="hero-text text-[10px] text-gold-dim tracking-[0.5em] uppercase mb-4 opacity-60">
-              Terras Intermédias
-            </p>
-            <h1
-              className="hero-title text-4xl md:text-5xl text-gold-light mb-6"
-              style={{ animation: "none" }}
-            >
-              Locais
-            </h1>
-            <div className="w-16 h-px bg-gold/30 mx-auto" />
+            <div className="mx-auto w-fit">
+              <h1
+                className="hero-title text-3xl md:text-4xl text-gold-light mb-6"
+                style={{ animation: "none" }}
+              >
+                Terras Intermédias
+              </h1>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 2,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                style={{ transformOrigin: "center" }}
+                className="w-full h-px bg-gold/20 mx-auto mt-4"
+              />
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
